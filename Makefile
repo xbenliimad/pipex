@@ -1,6 +1,8 @@
 NAME= pipex
 
-SRC= ./src/main.c
+SRC= ./src/main.c \
+./src/get_final_path.c \
+./src/utils.c\
 
 OBJ=$(SRC:%.c=%.o)
 
