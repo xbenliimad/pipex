@@ -1,6 +1,6 @@
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include "libft.h"
 # include "ft_printf.h"
@@ -15,7 +15,7 @@ typedef struct s_info
     char **env;
 }   t_info;
 
-// Main
+// Bonus
 char    *ft_get_final_path(char *av, char *env[]);
 void	ft_child_process(t_info main_info, int file[2]);
 

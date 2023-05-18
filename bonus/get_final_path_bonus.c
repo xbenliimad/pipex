@@ -8,8 +8,6 @@ static char    **ft_get_paths(char *env[])
 
 	i = 0;
 	path = NULL;
-	// if (!env)
-	// 	return (NULL);
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], "PATH=", 5))
@@ -34,8 +32,6 @@ char    *ft_get_final_path(char *av, char *env[])
 	paths = ft_get_paths(env);
 	cmd = ft_split(av, ' ');
 	i = 0;
-	// if (!paths)
-	// 	return (av);
 	while(paths[i])
 	{
 		final_path = ft_strjoin(paths[i], "/");

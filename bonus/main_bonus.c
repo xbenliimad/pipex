@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 int	main(int ac, char *av[], char *env[])
 {
@@ -6,11 +6,8 @@ int	main(int ac, char *av[], char *env[])
 	t_info	main_info;
 
 	main_info = ft_get_info(ac, av, env);
-	if (ac != 5)
-	{
-		printf("More or less than 5 args.\n");
+	if (ac < 5)
 		return (1);
-	}
 	file[0] = open(av[1], O_RDONLY, 0666);
 	if (file[0] < 0)
 		ft_error("Error opening the fd.\n");
@@ -18,6 +15,5 @@ int	main(int ac, char *av[], char *env[])
 	if (file[1] < 0)
 		ft_error("Error opening the fd.\n");
 	ft_child_process(main_info, file);
-	//system("leaks pipex");
 	return (0);
 }
