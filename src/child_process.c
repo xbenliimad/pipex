@@ -7,6 +7,7 @@ static void	ft_handle_child_process(t_info main_info, int i, int tmp, int file[2
 
 	if (i == 2)
 	{
+		ft_open_fd(&file[0], main_info.av[1], 0);
 		dup2(file[0], 0);
 		close(file[0]);
 	}
@@ -15,6 +16,7 @@ static void	ft_handle_child_process(t_info main_info, int i, int tmp, int file[2
 	dup2(main_info.fd[1], 1);
 	if (i == main_info.ac - 2)
 	{
+		ft_open_fd(&file[1], main_info.av[main_info.ac - 1], 1);
 		dup2(file[1], 1);
 		close(file[1]);
 	}
@@ -23,8 +25,7 @@ static void	ft_handle_child_process(t_info main_info, int i, int tmp, int file[2
 	cmd = ft_split(main_info.av[i], ' ');
 	path = ft_get_final_path(main_info.av[i], main_info.env);
 	execve(path, cmd, main_info.env);
-	printf("%s: Command not found.\n", main_info.av[i]);
-	exit(1);
+	ft_error("Command not found.\n");
 }
 
 void	ft_child_process(t_info main_info, int file[2])

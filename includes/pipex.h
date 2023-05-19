@@ -17,11 +17,12 @@ typedef struct s_info
 
 // Main
 char    *ft_get_final_path(char *av, char *env[]);
-void	ft_child_process(t_info main_info, int file[2]);
+void    ft_child_process(t_info main_info, int file[2]);
 
 // Utils
 void ft_free_double_pointer(char **str);
-void ft_error(char *message);
+void    ft_error(char *message);
 t_info	ft_get_info(int ac, char *av[], char *env[]);
+void	ft_open_fd(int *fd, char *file_name, int create);
 
 #endif
