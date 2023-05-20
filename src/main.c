@@ -7,10 +7,7 @@ int	main(int ac, char *av[], char *env[])
 
 	main_info = ft_get_info(ac, av, env);
 	if (ac != 5)
-	{
-		printf("More or less than 5 args.\n");
-		return (1);
-	}
+		ft_error("Error: more or less than 5 args.", NULL);
 	ft_child_process(main_info, file);
 	//system("leaks pipex");
 	return (0);

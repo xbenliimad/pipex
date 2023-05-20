@@ -24,22 +24,22 @@ static char    **ft_get_paths(char *env[])
 	return (paths);
 }
 
-char    *ft_get_final_path(char *av, char *env[])
+char    *ft_get_final_path(char *cmd, char *env[])
 {
 	int		i;
 	char	*final_path;
+	char	*slash_path;
 	char	**paths;
-	char	**cmd;
 
 	paths = ft_get_paths(env);
-	cmd = ft_split(av, ' ');
 	i = 0;
 	if (!paths)
-		return (av);
+		return (NULL);
 	while(paths[i])
 	{
-		final_path = ft_strjoin(paths[i], "/");
-		final_path = ft_strjoin(final_path, cmd[0]);
+		slash_path = ft_strjoin(paths[i], "/");
+		final_path = ft_strjoin(slash_path, cmd);
+		free(slash_path);
 		if (!access(final_path, X_OK))
 			break ;
 		free(final_path);

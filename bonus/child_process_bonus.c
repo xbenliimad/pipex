@@ -23,7 +23,7 @@ static void	ft_handle_child_process(t_info main_info, int i, int tmp, int file[2
 	close(main_info.fd[1]);
 	close(main_info.fd[0]);
 	cmd = ft_split(main_info.av[i], ' ');
-	path = ft_get_final_path(main_info.av[i], main_info.env);
+	path = ft_get_final_path(cmd[0], main_info.env);
 	execve(path, cmd, main_info.env);
 	ft_error("Command not found.\n");
 }
