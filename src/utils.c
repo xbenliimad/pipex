@@ -25,13 +25,14 @@ t_info	ft_get_info(int ac, char *av[], char *env[])
 
 	main.ac = ac;
 	main.av = av;
-	if (env)
-		main.env = env;
+	main.env = env;
 	return (main);
 }
 
 void	ft_open_fd(int *fd, char *file_name, int create)
 {
+	if (!*file_name)
+		ft_error("pipex: no such file or directory : \n", file_name);
 	if (!create)
 	{
 		*fd = open(file_name, O_RDONLY, 0666);

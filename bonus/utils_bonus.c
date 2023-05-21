@@ -15,7 +15,7 @@ void ft_error(char *message, char *txt)
     write(2, message, ft_strlen(message));
     if (txt)
 		write(2, txt, ft_strlen(txt));
-    write(2, '\n', 1);
+    write(2, "\n", 1);
     exit(1);
 }
 

@@ -25,7 +25,7 @@ static void	ft_handle_child_process(t_info main_info, int i, int tmp, int file[2
 	cmd = ft_split(main_info.av[i], ' ');
 	path = ft_get_final_path(cmd[0], main_info.env);
 	execve(path, cmd, main_info.env);
-	ft_error("Command not found.\n");
+	ft_error("Command not found.\n", cmd[0]);
 }
 
 void	ft_child_process(t_info main_info, int file[2])
@@ -35,14 +35,19 @@ void	ft_child_process(t_info main_info, int file[2])
 	int	i;
 
 	i = 2;
+	if (ft_here_doc_exists(main_info.av))
+	{
+		ft_handle_here_doc(main_info.av[2], &file[0]);
+		i += 2;
+	}
 	tmp = -1;
 	while (i < main_info.ac - 1)
 	{
 		if (pipe(main_info.fd) == -1)
-			ft_error("An error has occured during pipe().\n");
+			exit(1);
 		pid = fork();
 		if (pid < 0)
-			ft_error("An error has occured during the fork().\n");
+			exit(1);
 		if (pid == 0)
 			ft_handle_child_process(main_info, i, tmp, file);
 		if (tmp != -1)

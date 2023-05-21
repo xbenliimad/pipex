@@ -25,4 +25,8 @@ void ft_error(char *message, char *txt);
 t_info	ft_get_info(int ac, char *av[], char *env[]);
 void	ft_open_fd(int *fd, char *file_name, int create);
 
+// HERE_DOC
+void    ft_handle_here_doc(char *breaker, int *fd);
+int ft_here_doc_exists(char *av[]);
+
 #endif

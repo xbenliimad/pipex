@@ -8,7 +8,8 @@ SRC= ./src/main.c \
 SRC_BONUS= ./bonus/main_bonus.c \
 ./bonus/get_final_path_bonus.c \
 ./bonus/utils_bonus.c\
-./bonus/child_process_bonus.c
+./bonus/child_process_bonus.c \
+./bonus/handle_here_doc_bonus.c
 
 OBJ=$(SRC:%.c=%.o)
 
@@ -16,7 +17,7 @@ OBJ_BONUS=$(SRC_BONUS:%.c=%.o)
 
 INCLUDES= -I./includes -I./utils/libft -I./utils/get-next-line -I./utils/ft_printf
 
-FLAGS= -Wall -Wextra -Werror -fsanitize=address $(INCLUDES)
+FLAGS= -Wall -Wextra -Werror $(INCLUDES)
 
 CC= cc
 
