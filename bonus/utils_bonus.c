@@ -30,19 +30,23 @@ t_info	ft_get_info(int ac, char *av[], char *env[])
 	return (main);
 }
 
-void	ft_open_fd(int *fd, char *file_name, int create)
+void	ft_open_fd(int *fd, char *file_name, int state)
 {
-	if (!create)
+	if (!state)
 	{
-		*fd = open(file_name, O_RDONLY, 0666);
+		*fd = open(file_name, O_RDONLY);
 		if (*fd < 0)
 			ft_error("pipex: no such file or directory : ", file_name);
 	}
-	else
+	else if (state == 1)
 	{
-		// if(!*file_name)
-		// 	write(2,"haamid\n",7);
-		*fd = open(file_name, O_RDWR | O_CREAT, 0777);
+		*fd = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0666);
+		if (*fd < 0)
+			ft_error("pipex: no such file or directory : ", file_name);
+	}
+	else if (state == 2)
+	{
+		*fd = open(file_name, O_RDWR | O_CREAT | O_APPEND, 0666);
 		if (*fd < 0)
 			ft_error("pipex: no such file or directory : ", file_name);
 	}

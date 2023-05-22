@@ -23,10 +23,10 @@ void    ft_child_process(t_info main_info, int file[2]);
 void ft_free_double_pointer(char **str);
 void ft_error(char *message, char *txt);
 t_info	ft_get_info(int ac, char *av[], char *env[]);
-void	ft_open_fd(int *fd, char *file_name, int create);
+void	ft_open_fd(int *fd, char *file_name, int state);
 
 // HERE_DOC
-void    ft_handle_here_doc(char *breaker, int *fd);
+int    ft_handle_here_doc(char *breaker);
 int ft_here_doc_exists(char *av[]);
 
 #endif
