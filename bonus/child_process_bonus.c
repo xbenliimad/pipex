@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   child_process_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibenli <ibenli@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/23 21:50:59 by ibenli            #+#    #+#             */
+/*   Updated: 2023/05/23 21:51:00 by ibenli           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex_bonus.h"
 
 static void	ft_handle_open(int *fd, char *av, int state, int dup)
@@ -12,14 +24,7 @@ static void	ft_handle_child_process(t_info main_info, int i, int tmp,
 {
 	char	*path;
 	char	**cmd;
-	int		gnl_fd;
 
-	if (i == 4 && ft_here_doc_exists(main_info.av))
-	{
-		gnl_fd = ft_handle_here_doc(main_info.av[2]);
-		dup2(gnl_fd, 0);
-		close(gnl_fd);
-	}
 	if (i == 2)
 		ft_handle_open(&file[0], main_info.av[1], 0, 0);
 	if (tmp != -1)
@@ -37,29 +42,42 @@ static void	ft_handle_child_process(t_info main_info, int i, int tmp,
 	ft_error("pipex: command not found : ", cmd[0]);
 }
 
+static void	ft_handle_fork(t_info *main_info, int i, int file[2], int *tmp)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid && i == (*main_info).ac - 2)
+		(*main_info).last_child = pid;
+	if (pid < 0)
+		exit(1);
+	if (pid == 0)
+	{
+		if (i == 2 && ft_here_doc_exists((*main_info).av))
+			ft_handle_here_doc((*main_info).av[2], (*main_info).fd);
+		else
+			ft_handle_child_process((*main_info), i, *tmp, file);
+	}
+	if (i == 2 && ft_here_doc_exists((*main_info).av))
+		wait(NULL);
+	if (*tmp != -1)
+		close(*tmp);
+	*tmp = (*main_info).fd[0];
+	close((*main_info).fd[1]);
+}
+
 void	ft_child_process(t_info main_info, int file[2])
 {
-	int pid;
-	int tmp;
-	int i;
+	int	tmp;
+	int	i;
 
 	i = 2;
-	if (ft_here_doc_exists(main_info.av))
-		i += 2;
 	tmp = -1;
 	while (i < main_info.ac - 1)
 	{
 		if (pipe(main_info.fd) == -1)
 			exit(1);
-		pid = fork();
-		if (pid < 0)
-			exit(1);
-		if (pid == 0)
-			ft_handle_child_process(main_info, i, tmp, file);
-		if (tmp != -1)
-			close(tmp);
-		tmp = main_info.fd[0];
-		close(main_info.fd[1]);
+		ft_handle_fork(&main_info, i, file, &tmp);
 		i++;
 	}
 	while (wait(NULL) != -1)

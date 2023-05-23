@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_here_doc_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibenli <ibenli@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/23 21:51:52 by ibenli            #+#    #+#             */
+/*   Updated: 2023/05/23 21:51:53 by ibenli           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex_bonus.h"
 
 int	ft_here_doc_exists(char *av[])
@@ -7,22 +19,20 @@ int	ft_here_doc_exists(char *av[])
 	return (0);
 }
 
-int	ft_handle_here_doc(char *breaker)
+void	ft_handle_here_doc(char *breaker, int fd[2])
 {
-	int gnl_fd[2];
-	char *line;
+	char	*line;
 
-	if (pipe(gnl_fd) == -1)
-		exit(1);
 	breaker = ft_strjoin(breaker, "\n");
 	line = get_next_line(0);
 	while (ft_strncmp(line, breaker, ft_strlen(line)))
 	{
-		ft_putstr_fd(line, gnl_fd[1]);
+		ft_putstr_fd(line, fd[1]);
 		free(line);
 		line = get_next_line(0);
 	}
 	free(breaker);
-	close(gnl_fd[1]);
-	return (gnl_fd[0]);
+	close(fd[1]);
+	close(fd[0]);
+	exit(0);
 }
