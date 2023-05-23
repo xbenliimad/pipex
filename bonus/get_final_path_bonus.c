@@ -1,10 +1,10 @@
 #include "pipex_bonus.h"
 
-static char    **ft_get_paths(char *env[])
+static char	**ft_get_paths(char *env[])
 {
 	int		i;
-	char    *path;
-	char    **paths;
+	char	*path;
+	char	**paths;
 
 	i = 0;
 	path = NULL;
@@ -24,18 +24,18 @@ static char    **ft_get_paths(char *env[])
 	return (paths);
 }
 
-char    *ft_get_final_path(char *cmd, char *env[])
+char	*ft_get_final_path(char *cmd, char *env[])
 {
-	int		i;
-	char	*final_path;
-	char	*slash_path;
-	char	**paths;
+	int i;
+	char *final_path;
+	char *slash_path;
+	char **paths;
 
 	paths = ft_get_paths(env);
 	i = 0;
 	if (!paths)
 		return (NULL);
-	while(paths[i])
+	while (paths[i])
 	{
 		slash_path = ft_strjoin(paths[i], "/");
 		final_path = ft_strjoin(slash_path, cmd);

@@ -1,13 +1,14 @@
 #include "pipex_bonus.h"
 
-static void	ft_handle_open(int	*fd, char *av, int state, int dup)
+static void	ft_handle_open(int *fd, char *av, int state, int dup)
 {
 	ft_open_fd(fd, av, state);
 	dup2(*fd, dup);
 	close(*fd);
 }
 
-static void	ft_handle_child_process(t_info main_info, int i, int tmp, int file[2])
+static void	ft_handle_child_process(t_info main_info, int i, int tmp,
+		int file[2])
 {
 	char	*path;
 	char	**cmd;
@@ -38,9 +39,9 @@ static void	ft_handle_child_process(t_info main_info, int i, int tmp, int file[2
 
 void	ft_child_process(t_info main_info, int file[2])
 {
-	int	pid;
-	int	tmp;
-	int	i;
+	int pid;
+	int tmp;
+	int i;
 
 	i = 2;
 	if (ft_here_doc_exists(main_info.av))

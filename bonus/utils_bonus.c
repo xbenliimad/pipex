@@ -1,27 +1,27 @@
 #include "pipex_bonus.h"
 
-void ft_free_double_pointer(char **str)
+void	ft_free_double_pointer(char **str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		free(str[i++]);
 	free(str);
 }
 
-void ft_error(char *message, char *txt)
+void	ft_error(char *message, char *txt)
 {
-    write(2, message, ft_strlen(message));
-    if (txt)
+	write(2, message, ft_strlen(message));
+	if (txt)
 		write(2, txt, ft_strlen(txt));
-    write(2, "\n", 1);
-    exit(1);
+	write(2, "\n", 1);
+	exit(1);
 }
 
 t_info	ft_get_info(int ac, char *av[], char *env[])
 {
-	t_info main;
+	t_info	main;
 
 	main.ac = ac;
 	main.av = av;
