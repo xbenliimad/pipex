@@ -6,7 +6,7 @@
 /*   By: ibenli <ibenli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:48:54 by ibenli            #+#    #+#             */
-/*   Updated: 2023/05/23 21:54:55 by ibenli           ###   ########.fr       */
+/*   Updated: 2023/05/27 18:26:28 by ibenli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ char	*ft_get_final_path(char *cmd, char *env[])
 	char	*slash_path;
 	char	**paths;
 
-	paths = ft_get_paths(env);
 	if (ft_strchr(cmd, '/'))
 		return (cmd);
-	i = 0;
+	paths = ft_get_paths(env);
 	if (!paths)
 		return (NULL);
+	i = 0;
 	while (paths[i])
 	{
 		slash_path = ft_strjoin(paths[i], "/");
